@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cvaiedu.template.business.system.mapper.RoleMapper">
+
+    <resultMap id="baseEntity" type="com.cvaiedu.template.business.system.entity.Role">
+        <id column="id" javaType="Long" jdbcType="BIGINT" property="id" />
+        <result column="role_name" javaType="String" jdbcType="VARCHAR" property="roleName" />
+        <result column="role_desc" javaType="String" jdbcType="VARCHAR" property="roleDesc" />
+        <result column="create_time" javaType="Date" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" javaType="Date" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="del_flag" javaType="Integer" jdbcType="INTEGER" property="delFlag" />
+    </resultMap>
+
+    <select id="getByAccountCode" resultMap="baseEntity">
+        SELECT fr.* from framework_role fr
+        LEFT JOIN framework_role_account fra ON fr.id = fra.role_id
+        LEFT JOIN framework_account fa ON fra.account_code = fa.account_code
+        WHERE
+            fa.account_code = #{accountCode}
+    </select>
+
+</mapper>

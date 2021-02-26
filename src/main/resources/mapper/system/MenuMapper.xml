@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cvaiedu.template.business.system.mapper.MenuMapper">
+
+    <select id="getByRoleId" resultType="com.cvaiedu.template.business.system.entity.Menu">
+        SELECT fm.* FROM framework_menu fm
+        LEFT JOIN framework_role_menu frm ON fm.id = frm.menu_id
+        LEFT JOIN framework_role fr ON frm.role_id = fr.id
+        WHERE
+            fr.id = #{roleId}
+    </select>
+
+    <select id="getByAccountCode" resultType="com.cvaiedu.template.business.system.entity.Menu">
+        SELECT fm.* FROM framework_menu fm
+        LEFT JOIN framework_role_menu frm ON fm.id = frm.menu_id
+        LEFT JOIN framework_role fr ON frm.role_id = fr.id
+        LEFT JOIN framework_role_account fra ON fr.id = fra.role_id
+        LEFT JOIN framework_account fa ON fra.account_code = fa.account_code
+        WHERE
+            fa.account_code = #{accountCode}
+    </select>
+</mapper>

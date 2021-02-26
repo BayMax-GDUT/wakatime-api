@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	scan为true，配置文件发送变化，会重新配置文件。
+	scanPeriod。检测文件修改时间间隔。默认一分钟
+	debug为true。打印logback内部的日志信息。默认为false
+-->
+<configuration scan="true" scanPeriod="10 seconds" debug="false">
+
+	<timestamp key="byDay" datePattern="yyyy-MM-dd" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+
+		<!-- 过滤掉低于DEBUG的输出 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+	</appender>
+
+	<!-- 
+		RollingFileAppender:先把日志记录到指定的文件，当符合某个条件时，把日志记录到其他文件。
+	-->
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<file>${LOG_PATH}/${LOG_FILE}.log</file><!-- 临时记录日志文件。这里是读application.properties里面的logging.path配置 -->
+
+		<!-- 每天从临时文件滚动到其他文件，其他文件的格式 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+
+		<!-- 过滤掉低于INFO的输出 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>
