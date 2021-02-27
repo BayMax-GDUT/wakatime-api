@@ -9,8 +9,11 @@ import org.springframework.context.ApplicationEvent;
  * @date 2019/3/12 23:58
  */
 public class LogEvent extends ApplicationEvent {
-    public LogEvent(Log source) {
+    public LogEvent(Object source) {
         super(source);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>log发送");
     }
+//    public LogEvent(Log source) {
+//        super(source);
+//        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>log发送");
+//    }
 }

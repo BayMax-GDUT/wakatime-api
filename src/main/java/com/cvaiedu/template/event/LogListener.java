@@ -13,26 +13,26 @@ import org.springframework.scheduling.annotation.Async;
  */
 public class LogListener {
 
-    @Autowired
-    private LogService logService;
-
-    public LogListener(LogService logService) {
-        this.logService = logService;
-    }
-
-    /**
-     * 异步记录日志
-     *
-     * @param event event
-     */
-    @Async
-    @Order
-    @EventListener(LogEvent.class)
-    public void saveSysLog(LogEvent event) {
-        Log log = (Log) event.getSource();
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>log监听");
-        //保存系统日志
-        logService.save(log);
-    }
+//    @Autowired
+//    private LogService logService;
+//
+//    public LogListener(LogService logService) {
+//        this.logService = logService;
+//    }
+//
+//    /**
+//     * 异步记录日志
+//     *
+//     * @param event event
+//     */
+//    @Async
+//    @Order
+//    @EventListener(LogEvent.class)
+//    public void saveSysLog(LogEvent event) {
+//        Log log = (Log) event.getSource();
+//        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>log监听");
+//        //保存系统日志
+//        logService.save(log);
+//    }
 
 }
